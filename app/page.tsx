@@ -1,22 +1,44 @@
+"use client";
+
+import { useState } from "react";
 import { Header } from "@/components/header";
 import { Card } from "@/components/card";
 import { Footer } from "@/components/footer";
+import { LoadMoreSection } from "@/components/load-more";
 
-const MOCK_ITEMS = Array.from({ length: 8 }).map((_, i) => ({
-  id: i,
-  title: `Voucher NFT #${i + 1}`,
-  subtitle: "Passe de acesso exclusivo para membros Starsoft.",
-  imageSrc: "",
-}));
+const TOTAL_ITEMS = 32;
+const ITEMS_PER_PAGE = 4;
+
+const GENERATE_MOCK_ITEMS = (count: number) =>
+  Array.from({ length: count }).map((_, i) => ({
+    id: i,
+    title: `Voucher NFT #${i + 1}`,
+    subtitle: "Passe de acesso exclusivo para membros Starsoft.",
+    imageSrc: "",
+  }));
 
 export default function Home() {
+  const [items, setItems] = useState(() => GENERATE_MOCK_ITEMS(8));
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoadMore = async () => {
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setItems((prev) => {
+      const nextCount = Math.min(prev.length + ITEMS_PER_PAGE, TOTAL_ITEMS);
+      return GENERATE_MOCK_ITEMS(nextCount);
+    });
+    setIsLoading(false);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#232323]">
       <Header />
 
       <main className="flex-1 flex flex-col mt-[189px] px-[8.531rem] pb-[189px]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-[repeat(4,345px)] gap-[1.563rem] justify-center">
-          {MOCK_ITEMS.map((item) => (
+          {items.map((item) => (
             <Card
               key={item.id}
               title={item.title}
@@ -27,9 +49,12 @@ export default function Home() {
         </div>
 
         <div className="mt-[189px] flex justify-center w-full">
-          <button className="w-[403px] h-[86px] bg-secondary py-[30px] text-[#FFFFFF] text-[20px] rounded-[8px] hover:bg-[#FF8310] hover:text-white transition-colors font-semibold cursor-pointer">
-            Carregar mais
-          </button>
+          <LoadMoreSection
+            currentCount={items.length}
+            totalCount={TOTAL_ITEMS}
+            isLoading={isLoading}
+            onLoadMore={handleLoadMore}
+          />
         </div>
       </main>
 
