@@ -43,9 +43,7 @@ export function LoadMoreSection({
       )}
 
       {isComplete && (
-        <p className="text-[#CCCCCC] text-sm mt-2">
-          Você chegou ao fim da lista.
-        </p>
+        <p className="text-[#CCCCCC] text-sm mt-2">Você já viu tudo</p>
       )}
     </div>
   );
