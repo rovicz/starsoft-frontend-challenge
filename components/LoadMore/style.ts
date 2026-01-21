@@ -1,6 +1,7 @@
 "use client";
 
 import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
 
 export const LoadMoreContainer = styled.div`
   display: flex;
@@ -19,15 +20,14 @@ export const ProgressBarContainer = styled.div`
   overflow: hidden;
 `;
 
-export const ProgressBarFill = styled.div<{ $width: number }>`
+// Removed specific width prop from styled definition as it will be handled by Framer Motion 'style' or 'animate'
+export const ProgressBarFill = styled(motion.div)`
   height: 100%;
   background-color: #FF8310;
-  transition: width 0.5s ease-out;
   border-radius: 8px;
-  width: ${(props) => props.$width}%;
 `;
 
-export const LoadMoreButton = styled.button`
+export const LoadMoreButton = styled(motion.button)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,6 +41,7 @@ export const LoadMoreButton = styled.button`
   cursor: pointer;
   text-align: center;
   border: none;
+  /* Keep background transition for hover color change, let motion handle scale */
   transition: background-color 0.2s;
 
   &:hover {
@@ -53,7 +54,7 @@ export const LoadMoreButton = styled.button`
   }
 `;
 
-export const CompletionText = styled.p`
+export const CompletionText = styled(motion.p)`
   color: #CCCCCC;
   font-size: 0.875rem;
   margin-top: 0.5rem;
@@ -78,7 +79,7 @@ export const Spinner = styled.div`
   margin-right: 0.5rem;
 `;
 
-export const SpinnerContainer = styled.div`
+export const SpinnerContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 0.5rem;

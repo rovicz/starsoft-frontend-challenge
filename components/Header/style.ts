@@ -22,9 +22,10 @@ export const CartWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.563rem;
+  cursor: pointer;
 `;
 
 export const CartCount = styled.span`
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 500;
 `;

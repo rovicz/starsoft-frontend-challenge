@@ -28,16 +28,27 @@ export function LoadMoreSection({
   return (
     <LoadMoreContainer>
       <ProgressBarContainer>
-        <ProgressBarFill $width={percentage} />
+        <ProgressBarFill 
+          initial={{ width: 0 }}
+          animate={{ width: `${percentage}%` }}
+          transition={{ type: "spring", stiffness: 60, damping: 20 }}
+        />
       </ProgressBarContainer>
 
       {!isComplete && (
         <LoadMoreButton
           onClick={onLoadMore}
           disabled={isLoading}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
           {isLoading ? (
-            <SpinnerContainer>
+            <SpinnerContainer
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               <Spinner />
               <span>Carregando...</span>
             </SpinnerContainer>
@@ -48,7 +59,11 @@ export function LoadMoreSection({
       )}
 
       {isComplete && (
-        <CompletionText>
+        <CompletionText
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           Você chegou ao fim da lista.
         </CompletionText>
       )}
