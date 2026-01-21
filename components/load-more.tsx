@@ -43,7 +43,12 @@ export function LoadMoreSection({
       )}
 
       {isComplete && (
-        <p className="text-[#CCCCCC] text-sm mt-2">Você já viu tudo</p>
+        <button
+          disabled={isLoading}
+          className="flex items-center justify-center w-[403px] h-[86px] bg-secondary py-[30px] text-[#FFFFFF] text-[20px] rounded-[8px] hover:bg-[#FF8310] hover:text-white transition-colors font-semibold cursor-pointer text-center"
+        >
+          Você já viu tudo
+        </button>
       )}
     </div>
   );
