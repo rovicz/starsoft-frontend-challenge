@@ -36,8 +36,14 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-[#232323]">
       <Header />
 
-      <main className="flex-1 flex flex-col mt-[189px] px-[8.531rem] pb-[189px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-[repeat(4,345px)] gap-[1.563rem] justify-center">
+      {/* Main Content 
+          Top spacing: 289px from top of page.
+          Header is 100px. So margin-top is 189px relative to header.
+          Padding X: Responsive (1rem mobile -> 8.531rem desktop).
+      */}
+      <main className="flex-1 flex flex-col mt-[30px] md:mt-[189px] px-4 md:px-10 lg:px-20 xl:px-[8.531rem] pb-[30px] md:pb-[189px]">
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-[repeat(4,345px)] gap-[1.563rem] justify-items-center justify-center">
           {items.map((item) => (
             <Card
               key={item.id}
@@ -48,13 +54,14 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-[189px] flex justify-center w-full">
-          <LoadMoreSection
-            currentCount={items.length}
-            totalCount={TOTAL_ITEMS}
-            isLoading={isLoading}
-            onLoadMore={handleLoadMore}
-          />
+        {/* Load More Section - Spaced 189px from grid bottom (handled by parent padding-bottom or margin here) */}
+        <div className="mt-[30px] md:mt-[189px] flex justify-center w-full">
+            <LoadMoreSection 
+              currentCount={items.length} 
+              totalCount={TOTAL_ITEMS} 
+              isLoading={isLoading} 
+              onLoadMore={handleLoadMore} 
+            />
         </div>
       </main>
 

@@ -9,11 +9,11 @@ interface CardProps {
 
 export function Card({ title, subtitle, imageSrc }: CardProps) {
   return (
-    <div className="w-[345px] h-[555px] bg-[#191A20] rounded-[8px] p-[1.531rem] flex flex-col">
+    <div className="w-full max-w-[345px] h-[555px] bg-[#191A20] rounded-[8px] p-[1.531rem] flex flex-col">
       {/* Image Area - Taking remaining space naturally or fixed height? 
           The specs don't strictly say, but usually it fills the space above text. 
           Let's make it flexible. */}
-      <div className="flex-1 w-full bg-[#232323] rounded-[8px] relative overflow-hidden">
+      <div className="flex-1 w-full bg-[#232323] rounded-[8px] relative overflow-hidden mb-4">
         {imageSrc ? (
           <Image src={imageSrc} alt={title} fill className="object-cover" />
         ) : (

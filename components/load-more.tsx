@@ -17,7 +17,7 @@ export function LoadMoreSection({
   const isComplete = currentCount >= totalCount;
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center w-full max-w-[345px] gap-4">
       <div className="w-full h-[10px] bg-[#393939] rounded-[8px] overflow-hidden">
         <div
           className="h-full bg-[#FF8310] transition-all duration-500 ease-out rounded-[8px]"
@@ -29,7 +29,7 @@ export function LoadMoreSection({
         <button
           onClick={onLoadMore}
           disabled={isLoading}
-          className="flex items-center justify-center w-[403px] h-[86px] bg-secondary py-[30px] text-[#FFFFFF] text-[20px] rounded-[8px] hover:bg-[#FF8310] hover:text-white transition-colors font-semibold cursor-pointer text-center"
+          className="flex items-center justify-center w-full h-[66px] bg-[#191A20] text-[#FFFFFF] text-base rounded-[8px] hover:bg-[#2a2b36] transition-colors font-medium cursor-pointer text-center"
         >
           {isLoading ? (
             <div className="flex items-center gap-2">
@@ -43,12 +43,9 @@ export function LoadMoreSection({
       )}
 
       {isComplete && (
-        <button
-          disabled={isLoading}
-          className="flex items-center justify-center w-[403px] h-[86px] bg-secondary py-[30px] text-[#FFFFFF] text-[20px] rounded-[8px] hover:bg-[#FF8310] hover:text-white transition-colors font-semibold cursor-pointer text-center"
-        >
-          Você já viu tudo
-        </button>
+        <p className="text-[#CCCCCC] text-sm mt-2">
+          Você chegou ao fim da lista.
+        </p>
       )}
     </div>
   );
