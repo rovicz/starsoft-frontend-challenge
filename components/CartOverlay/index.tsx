@@ -3,7 +3,6 @@
 import React from "react";
 import { AnimatePresence } from "framer-motion";
 import { ShoppingBag, ArrowLeft } from "lucide-react";
-import Image from "next/image";
 
 import * as S from "./style";
 import { CartItem } from "../CartItem";
