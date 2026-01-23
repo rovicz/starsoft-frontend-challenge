@@ -25,7 +25,6 @@ export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.cart);
 
-  // Prevent body scroll and layout shift when overlay is open
   useScrollLock(isOpen);
 
   const handleIncrement = (id: number | string) => {

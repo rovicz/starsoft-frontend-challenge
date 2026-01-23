@@ -24,7 +24,7 @@ const GENERATE_MOCK_ITEMS = (count: number) =>
     id: i,
     title: `Voucher NFT #${i + 1}`,
     subtitle: "Passe de acesso exclusivo para membros Starsoft.",
-    imageSrc: "/bag.svg", // Using bag.svg as placeholder for now so it shows up in cart
+    imageSrc: "/bag.svg",
     price: Number((Math.random() * 2 + 0.5).toFixed(2)),
   }));
 
@@ -40,21 +40,21 @@ export default function Home() {
 
     setItems((prev) => {
       const nextCount = Math.min(prev.length + ITEMS_PER_PAGE, TOTAL_ITEMS);
-      // In a real app we would append new items, but here GENERATE_MOCK_ITEMS generates from 0 to count
-      // So we just regenerate the whole list with new count to simulate "load more" extending the list
       return GENERATE_MOCK_ITEMS(nextCount);
     });
     setIsLoading(false);
   };
 
-  const handleAddToCart = (item: typeof items[0]) => {
-    dispatch(addToCart({
-      id: item.id,
-      name: item.title,
-      subtitle: item.subtitle,
-      price: item.price,
-      image: item.imageSrc || "/bag.svg",
-    }));
+  const handleAddToCart = (item: (typeof items)[0]) => {
+    dispatch(
+      addToCart({
+        id: item.id,
+        name: item.title,
+        subtitle: item.subtitle,
+        price: item.price,
+        image: item.imageSrc || "/bag.svg",
+      }),
+    );
   };
 
   return (
