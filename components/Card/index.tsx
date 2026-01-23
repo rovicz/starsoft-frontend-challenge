@@ -7,17 +7,22 @@ import {
   Title, 
   Subtitle, 
   BuyButton,
-  PlaceholderIcon 
+  PlaceholderIcon,
+  PriceContainer,
+  EthIcon,
+  PriceValue
 } from "./style";
 
 interface CardProps {
   title: string;
   subtitle: string;
   imageSrc?: string;
+  price?: number;
   onBuy?: () => void;
+  isAdded?: boolean;
 }
 
-export function Card({ title, subtitle, imageSrc, onBuy }: CardProps) {
+export function Card({ title, subtitle, imageSrc, price = 0, onBuy, isAdded }: CardProps) {
   return (
     <CardContainer>
       <ImageContainer>
@@ -25,7 +30,8 @@ export function Card({ title, subtitle, imageSrc, onBuy }: CardProps) {
             <Image 
               src={imageSrc} 
               alt={title} 
-              fill 
+              width={216}
+              height={195}
               style={{ objectFit: "cover" }}
             />
          ) : (
@@ -42,10 +48,22 @@ export function Card({ title, subtitle, imageSrc, onBuy }: CardProps) {
       <TextContent>
         <Title>{title}</Title>
         <Subtitle>{subtitle}</Subtitle>
+        
+        <PriceContainer>
+          <EthIcon>
+             <Image 
+                src="/eth.png" 
+                alt="ETH" 
+                width={29} 
+                height={29} 
+             />
+          </EthIcon>
+          <PriceValue>{price.toFixed(2)} ETH</PriceValue>
+        </PriceContainer>
       </TextContent>
 
-      <BuyButton onClick={onBuy}>
-        Comprar
+      <BuyButton onClick={onBuy} $isAdded={isAdded} disabled={isAdded}>
+        {isAdded ? "ADICIONADO AO CARRINHO" : "Comprar"}
       </BuyButton>
     </CardContainer>
   );

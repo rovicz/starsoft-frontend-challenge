@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Card } from "@/components/Card";
 import { Header } from "@/components/Header";
 import { LoadMoreSection } from "@/components/LoadMore";
-import { useAppDispatch } from "@/lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { addToCart } from "@/lib/redux/features/cart/cartSlice";
 
 import {
@@ -32,6 +32,7 @@ export default function Home() {
   const [items, setItems] = useState(() => GENERATE_MOCK_ITEMS(8));
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart.items);
 
   const handleLoadMore = async () => {
     setIsLoading(true);
@@ -68,7 +69,9 @@ export default function Home() {
               title={item.title}
               subtitle={item.subtitle}
               imageSrc={item.imageSrc}
+              price={item.price}
               onBuy={() => handleAddToCart(item)}
+              isAdded={cartItems.some((cartItem) => cartItem.id === item.id)}
             />
           ))}
         </GridContainer>

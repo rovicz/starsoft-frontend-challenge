@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
   width: 100%;
   max-width: 345px;
   height: 555px;
-  background-color: #191A20;
+  background-color: #191a20;
   border-radius: 8px;
   padding: 1.531rem;
   display: flex;
@@ -14,50 +14,87 @@ export const CardContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  flex: 1;
-  width: 100%;
-  background-color: #232323;
+  width: 296px;
+  height: 258px;
+  background-color: #22232c;
   border-radius: 8px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
+  margin-top: 49px;
 `;
 
 export const Title = styled.h3`
   font-size: 18px;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #ffffff;
   line-height: 1.25;
 `;
 
 export const Subtitle = styled.p`
   font-size: 12px;
   font-weight: 400;
-  color: #CCCCCC;
+  color: #cccccc;
   margin-top: 10px;
 `;
 
-export const BuyButton = styled.button`
+export const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+`;
+
+export const EthIcon = styled.div`
+  width: 29px;
+  height: 29px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`;
+
+export const PriceValue = styled.span`
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 110%;
+  color: #ffffff;
+`;
+
+export const BuyButton = styled.button<{ $isAdded?: boolean }>`
   width: 100%;
   height: 66px;
-  background-color: #FF8310;
+  background-color: ${({ $isAdded }) => ($isAdded ? "#494949" : "#ff8310")};
   border-radius: 8px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 600;
-  font-size: 1rem;
+  font-style: SemiBold;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0%;
   margin-top: auto;
   transition: background-color 0.2s;
-  cursor: pointer;
+  cursor: ${({ $isAdded }) => ($isAdded ? "default" : "pointer")};
   border: none;
+  text-transform: uppercase;
 
   &:hover {
-    background-color: #e0720e;
+    background-color: ${({ $isAdded }) => ($isAdded ? "#494949" : "#e0720e")};
   }
 `;
 
