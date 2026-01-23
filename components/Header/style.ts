@@ -9,6 +9,10 @@ export const HeaderContainer = styled.header`
   align-items: center;
   padding: 0 2.6875rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.21);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: #232323;
 `;
 
 export const ContentWrapper = styled.div`
