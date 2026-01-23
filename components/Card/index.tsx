@@ -14,9 +14,10 @@ interface CardProps {
   title: string;
   subtitle: string;
   imageSrc?: string;
+  onBuy?: () => void;
 }
 
-export function Card({ title, subtitle, imageSrc }: CardProps) {
+export function Card({ title, subtitle, imageSrc, onBuy }: CardProps) {
   return (
     <CardContainer>
       <ImageContainer>
@@ -43,7 +44,7 @@ export function Card({ title, subtitle, imageSrc }: CardProps) {
         <Subtitle>{subtitle}</Subtitle>
       </TextContent>
 
-      <BuyButton>
+      <BuyButton onClick={onBuy}>
         Comprar
       </BuyButton>
     </CardContainer>

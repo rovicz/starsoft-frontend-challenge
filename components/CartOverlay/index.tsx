@@ -1,72 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { AnimatePresence } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, ArrowLeft } from "lucide-react";
+import Image from "next/image";
+
 import * as S from "./style";
 import { CartItem } from "../CartItem";
 import { CartFooter } from "../CartFooter";
-import Image from "next/image";
 import { useScrollLock } from "@/lib/useScrollLock";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+} from "@/lib/redux/features/cart/cartSlice";
 
 interface CartOverlayProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface MockCartItem {
-  id: number;
-  name: string;
-  subtitle: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
-
-const INITIAL_MOCK_ITEMS: MockCartItem[] = [
-  {
-    id: 1,
-    name: "Voucher NFT #01",
-    subtitle: "Passe de acesso exclusivo para membros Starsoft.",
-    price: 1.5,
-    image: "/bag.svg",
-    quantity: 1,
-  },
-  {
-    id: 2,
-    name: "Voucher NFT #02",
-    subtitle: "Acesso antecipado a drops e eventos.",
-    price: 2.25,
-    image: "/bag.svg",
-    quantity: 2,
-  },
-];
-
 export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
-  const [items, setItems] = useState<MockCartItem[]>(INITIAL_MOCK_ITEMS);
+  const dispatch = useAppDispatch();
+  const { items } = useAppSelector((state) => state.cart);
 
+  // Prevent body scroll and layout shift when overlay is open
   useScrollLock(isOpen);
 
   const handleIncrement = (id: number | string) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
-      ),
-    );
+    dispatch(incrementQuantity(id));
   };
 
   const handleDecrement = (id: number | string) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item,
-      ),
-    );
+    dispatch(decrementQuantity(id));
   };
 
   const handleRemove = (id: number | string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
+    dispatch(removeFromCart(id));
   };
 
   const total = items.reduce(
@@ -93,12 +64,7 @@ export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
           >
             <S.Header>
               <S.BackButton onClick={onClose} aria-label="Close cart">
-                <Image
-                  src="/arrow-left.svg"
-                  alt="Close cart"
-                  width={33}
-                  height={33}
-                />
+                <ArrowLeft size={24} />
               </S.BackButton>
               <S.Title>Mochila de Compras</S.Title>
             </S.Header>
@@ -109,7 +75,7 @@ export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
                   key={item.id}
                   id={item.id}
                   title={item.name}
-                  subtitle={item.subtitle}
+                  subtitle={item.subtitle || ""}
                   image={item.image}
                   price={item.price}
                   quantity={item.quantity}
