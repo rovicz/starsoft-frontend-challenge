@@ -10,7 +10,6 @@ export const Container = styled.div`
   margin-bottom: 24px;
   flex-shrink: 0;
 
-  /* Mobile: Reduz padding para ganhar espaço interno */
   @media (max-width: 768px) {
     padding: 15px;
     gap: 15px;
@@ -36,7 +35,6 @@ export const ImageWrapper = styled.div`
     object-fit: cover;
   }
 
-  /* Mobile: Reduz imagem drasticamente para manter layout horizontal */
   @media (max-width: 480px) {
     width: 100px;
     height: 100px;
@@ -47,7 +45,7 @@ export const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Importante para o text-overflow funcionar dentro do flex */
+  min-width: 0;
 `;
 
 export const Title = styled.h3`
@@ -56,7 +54,6 @@ export const Title = styled.h3`
   color: #ffffff;
   margin: 0;
 
-  /* Truncate text on small screens if needed */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -75,7 +72,6 @@ export const Subtitle = styled.p`
   margin-bottom: 1px;
   color: #e1e1e6;
 
-  /* Limita a 2 linhas e adiciona reticências */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -128,7 +124,7 @@ export const ActionsRow = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 16px;
-  gap: 10px; /* Garante separação mínima */
+  gap: 10px;
 
   @media (max-width: 480px) {
     margin-top: 12px;
@@ -147,7 +143,6 @@ export const QuantitySelector = styled.div`
   gap: 10px;
   box-sizing: border-box;
 
-  /* Mobile: Ajuste sutil nas dimensões */
   @media (max-width: 480px) {
     width: 90px;
     height: 40px;

@@ -13,9 +13,8 @@ export const CartFooter = ({ total }: CartFooterProps) => {
 
   const handleCheckout = () => {
     setIsFinalized(true);
-    // Here logic for actual checkout would go
     setTimeout(() => {
-        setIsFinalized(false);
+      setIsFinalized(false);
     }, 3000);
   };
 
@@ -25,19 +24,14 @@ export const CartFooter = ({ total }: CartFooterProps) => {
         <S.TotalLabel>Total</S.TotalLabel>
         <S.TotalValueWrapper>
           <S.EthIcon>
-             <Image 
-                src="/eth.png" 
-                alt="ETH" 
-                width={29} 
-                height={29} 
-             />
+            <Image src="/eth.png" alt="ETH" width={29} height={29} />
           </S.EthIcon>
           <S.TotalValue>{total.toFixed(2)} ETH</S.TotalValue>
         </S.TotalValueWrapper>
       </S.TotalRow>
 
-      <S.CheckoutButton 
-        onClick={handleCheckout} 
+      <S.CheckoutButton
+        onClick={handleCheckout}
         $isFinalized={isFinalized}
         disabled={isFinalized}
       >

@@ -20,10 +20,9 @@ export const ProgressBarContainer = styled.div`
   overflow: hidden;
 `;
 
-// Removed specific width prop from styled definition as it will be handled by Framer Motion 'style' or 'animate'
 export const ProgressBarFill = styled(motion.div)`
   height: 100%;
-  background-color: #FF8310;
+  background-color: #ff8310;
   border-radius: 8px;
 `;
 
@@ -33,8 +32,8 @@ export const LoadMoreButton = styled(motion.button)`
   justify-content: center;
   width: 100%;
   height: 66px;
-  background-color: #191A20;
-  color: #FFFFFF;
+  background-color: #191a20;
+  color: #ffffff;
   font-size: 1rem;
   border-radius: 8px;
   font-weight: 500;
@@ -55,7 +54,7 @@ export const LoadMoreButton = styled(motion.button)`
 `;
 
 export const CompletionText = styled(motion.p)`
-  color: #CCCCCC;
+  color: #cccccc;
   font-size: 0.875rem;
   margin-top: 0.5rem;
 `;

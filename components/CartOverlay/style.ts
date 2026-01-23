@@ -23,7 +23,6 @@ export const OverlayContainer = styled(motion.aside)`
   display: flex;
   flex-direction: column;
 
-  /* Responsividade: Tablet e Mobile ocupam 100% da tela */
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -39,7 +38,7 @@ export const Header = styled.header`
   z-index: 2;
 
   @media (max-width: 768px) {
-    height: 120px; /* Reduz altura do header no mobile */
+    height: 120px;
   }
 `;
 
@@ -65,7 +64,6 @@ export const BackButton = styled.button`
     border-color: #ffffff;
   }
 
-  /* Ajuste de posição no Mobile para alinhar com o padding reduzido */
   @media (max-width: 768px) {
     left: 20px;
     top: 30px;
@@ -104,7 +102,6 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
-  /* Custom Scrollbar */
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -116,9 +113,8 @@ export const Content = styled.div`
     border-radius: 3px;
   }
 
-  /* Ajustes Mobile */
   @media (max-width: 768px) {
-    margin-top: 120px; /* Compensa a altura reduzida do header */
+    margin-top: 120px;
     padding: 0 20px 20px 20px;
   }
 `;

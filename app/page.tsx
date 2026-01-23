@@ -31,7 +31,6 @@ export default function Home() {
 
   const handleLoadMore = async () => {
     setIsLoading(true);
-    // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     setItems((prev) => {

@@ -8,7 +8,7 @@ export const Container = styled.footer`
   padding-bottom: 20px;
 
   @media (max-width: 768px) {
-    margin-top: 40px; /* Reduz margem superior no mobile */
+    margin-top: 40px;
   }
 `;
 
@@ -17,7 +17,7 @@ export const TotalRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  flex-wrap: wrap; /* Permite quebrar linha em telas minúsculas se necessário */
+  flex-wrap: wrap;
   gap: 10px;
 `;
 
@@ -42,7 +42,7 @@ export const TotalValueWrapper = styled.div`
 `;
 
 export const EthIcon = styled.div`
-  width: 29px; /* Assuming same size as item icon if not specified, but usually smaller or similar */
+  width: 29px;
   height: 29px;
   display: flex;
   align-items: center;
@@ -69,12 +69,11 @@ export const TotalValue = styled.span`
 
 export const CheckoutButton = styled.button<{ $isFinalized?: boolean }>`
   margin-top: 70px;
-  width: 100%; /* Will fill the available width (previously 620px constraint removed/handled by parent padding) */
-  max-width: 620px; /* Garante que não ultrapasse o design original em telas grandes */
-  align-self: center; /* Centraliza se o container for maior que 620px */
+  width: 100%;
+  max-width: 620px;
+  align-self: center;
   height: 81px;
-  background-color: ${(props) =>
-    props.$isFinalized ? "#27AE60" : "#FF872C"}; /* Green for success */
+  background-color: ${(props) => (props.$isFinalized ? "#27AE60" : "#FF872C")};
   border: none;
   border-radius: 8px;
   color: #ffffff;
@@ -91,7 +90,6 @@ export const CheckoutButton = styled.button<{ $isFinalized?: boolean }>`
     filter: brightness(0.9);
   }
 
-  /* Ajustes Mobile */
   @media (max-width: 768px) {
     margin-top: 30px;
     height: 60px;

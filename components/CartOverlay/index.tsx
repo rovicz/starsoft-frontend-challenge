@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import * as S from "./style";
 import { CartItem } from "../CartItem";
 import { CartFooter } from "../CartFooter";
 import Image from "next/image";
+import { useScrollLock } from "@/lib/useScrollLock";
 
 interface CartOverlayProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-// Extended Mock Item to support quantity and subtitle
 interface MockCartItem {
   id: number;
   name: string;
@@ -45,17 +45,7 @@ const INITIAL_MOCK_ITEMS: MockCartItem[] = [
 export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
   const [items, setItems] = useState<MockCartItem[]>(INITIAL_MOCK_ITEMS);
 
-  // Prevent body scroll when overlay is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   const handleIncrement = (id: number | string) => {
     setItems((prev) =>
