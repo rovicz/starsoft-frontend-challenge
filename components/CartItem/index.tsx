@@ -31,7 +31,13 @@ export const CartItem = ({
   return (
     <S.Container>
       <S.ImageWrapper>
-        <Image src={image} alt={title} width={139} height={139} />
+        <Image
+          src={image}
+          alt={title}
+          width={139}
+          height={139}
+          style={{ borderRadius: "8px" }}
+        />
       </S.ImageWrapper>
 
       <S.Content>
