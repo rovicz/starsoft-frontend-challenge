@@ -73,7 +73,7 @@ describe("Header Component", () => {
 
     expect(screen.queryByTestId("cart-overlay")).not.toBeInTheDocument();
 
-    const cartButton = screen.getByLabelText(/open cart/i);
+    const cartButton = screen.getByLabelText(/abrir carrinho/i);
     fireEvent.click(cartButton);
 
     expect(store.getState().cart.isOpen).toBe(true);

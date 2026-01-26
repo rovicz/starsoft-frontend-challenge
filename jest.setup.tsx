@@ -1,31 +1,31 @@
 import '@testing-library/jest-dom';
+import React from 'react';
 
-// 1. Mock do Next/Image (Corrigido para remover 'priority')
+// Mock robusto do Next/Image
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
-    // Desestruturamos 'priority' e 'fill' para que NÃO sejam passados para a tag img
+    // Filtra props exclusivas do Next.js que o <img> nativo não aceita
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { priority, fill, ...rest } = props;
+    const { priority, fill, quality, loader, unoptimized, ...validProps } = props;
     /* eslint-disable-next-line @next/next/no-img-element */
-    return <img {...rest} />;
+    return <img {...validProps} />;
   },
 }));
 
-// 2. Mock do Framer Motion (Crucial para Styled Components funcionarem)
+// Mock do Framer Motion
 jest.mock('framer-motion', () => ({
   motion: {
     div: 'div',
+    aside: 'aside',
     p: 'p',
     button: 'button',
     span: 'span',
     ul: 'ul',
     li: 'li',
-    aside: 'aside', // Adicionei 'aside' pois vi o CartOverlay usar
     nav: 'nav',
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
-// Mock do window.scrollTo (usado em alguns hooks de scroll)
 Object.defineProperty(window, 'scrollTo', { value: jest.fn(), writable: true });

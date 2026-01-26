@@ -76,7 +76,7 @@ describe("CartOverlay Component", () => {
   it("should call onClose when close button is clicked", () => {
     renderWithRedux(<CartOverlay isOpen={true} onClose={onCloseMock} />);
 
-    const closeButton = screen.getByLabelText("Close cart");
+    const closeButton = screen.getByLabelText(/fechar carrinho/i);
     fireEvent.click(closeButton);
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
