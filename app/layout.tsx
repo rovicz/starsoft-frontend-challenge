@@ -18,8 +18,40 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Starsoft",
-  description: "An NFT Marketplace",
+  title: {
+    template: "Starsoft NFT | %s",
+    default: "Starsoft NFT Marketplace",
+  },
+  description:
+    "Descubra, colecione e venda NFTs extraordinários no Starsoft NFT Marketplace.",
+  keywords: [
+    "NFT",
+    "Marketplace",
+    "Crypto",
+    "Ethereum",
+    "Starsoft",
+    "Arte Digital",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://starsoft-nft.vercel.app/",
+    siteName: "Starsoft NFT",
+    title: "Starsoft NFT Marketplace",
+    description: "Descubra, colecione e venda NFTs extraordinários.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Starsoft NFT Marketplace",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -28,8 +60,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${lato.variable} antialiased`} suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body
+        className={`${poppins.variable} ${lato.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <StyledComponentsRegistry>
           <ReduxProvider>
             <QueryProvider>{children}</QueryProvider>

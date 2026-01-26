@@ -62,7 +62,7 @@ export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
           >
             <S.Header>
-              <S.BackButton onClick={onClose} aria-label="Close cart">
+              <S.BackButton onClick={onClose} aria-label="Fechar carrinho">
                 <ArrowLeft size={24} />
               </S.BackButton>
               <S.Title>Mochila de Compras</S.Title>

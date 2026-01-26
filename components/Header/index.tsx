@@ -34,7 +34,7 @@ export function Header() {
           <CartWrapper
             onClick={() => dispatch(toggleCart())}
             style={{ cursor: "pointer" }}
-            aria-label={`Open cart, ${totalItems} items`}
+            aria-label={`Abrir carrinho, ${totalItems} itens`}
           >
             <Image src="/bag.svg" alt="Carrinho" width={24} height={24} />
             <CartCount>{totalItems}</CartCount>

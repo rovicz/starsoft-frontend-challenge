@@ -32,7 +32,7 @@ export const LoadMoreButton = styled(motion.button)`
   justify-content: center;
   width: 100%;
   height: 66px;
-  background-color: #191a20;
+  background-color: #393939;
   color: #ffffff;
   font-size: 1rem;
   border-radius: 8px;

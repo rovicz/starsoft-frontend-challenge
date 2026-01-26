@@ -44,6 +44,7 @@ export function Card({
               alt={title}
               width={216}
               height={195}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onLoad={() => setIsImageLoaded(true)}
               style={{
                 objectFit: "cover",
