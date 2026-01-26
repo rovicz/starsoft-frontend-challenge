@@ -48,6 +48,7 @@ export const CartOverlay = ({ isOpen, onClose }: CartOverlayProps) => {
       {isOpen && (
         <>
           <S.Backdrop
+            data-testid="cart-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

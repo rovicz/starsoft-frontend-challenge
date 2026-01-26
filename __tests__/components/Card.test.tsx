@@ -63,4 +63,19 @@ describe("ProductCard Component", () => {
     const mainImage = screen.queryByRole("img", { name: "Test NFT" });
     expect(mainImage).not.toBeInTheDocument();
   });
+
+  it("should handle image loading state", () => {
+    render(<Card {...mockProps} />);
+
+    const img = screen.getByRole("img", { name: "Test NFT" });
+    
+    // Initial state: Opacity 0 (loading)
+    expect(img).toHaveStyle({ opacity: "0" });
+
+    // Simulate load event
+    fireEvent.load(img);
+
+    // Loaded state: Opacity 1
+    expect(img).toHaveStyle({ opacity: "1" });
+  });
 });

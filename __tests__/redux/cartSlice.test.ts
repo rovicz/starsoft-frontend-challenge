@@ -86,14 +86,49 @@ describe("Cart Reducer", () => {
     expect(actual.items[0].quantity).toBe(1);
   });
 
-  it("should not decrement below 1 via decrementQuantity", () => {
+  it("should remove item via decrementQuantity when quantity is 1", () => {
     const startState = {
       items: [{ id: 1, name: "Item", price: 10, image: "img", quantity: 1 }],
       isOpen: false,
     };
 
     const actual = cartReducer(startState, decrementQuantity(1));
-    expect(actual.items[0].quantity).toBe(1);
+    expect(actual.items).toHaveLength(0);
+  });
+
+  // Adding the missing test for non-existent item to cover the implicit "else" of find()
+  it("should do nothing if decrementing non-existent item", () => {
+     const startState = {
+      items: [{ id: 1, name: "Item", price: 10, image: "img", quantity: 1 }],
+      isOpen: false,
+    };
+    const actual = cartReducer(startState, decrementQuantity(999));
+    expect(actual.items).toEqual(startState.items);
+  });
+
+  it("should ignore decrementQuantity if item does not exist", () => {
+    const startState = {
+      items: [{ id: 1, name: "Item", price: 10, image: "img", quantity: 2 }],
+      isOpen: false,
+    };
+
+    const actual = cartReducer(startState, decrementQuantity(999));
+    expect(actual.items[0].quantity).toBe(2);
+  });
+
+  it("should increment quantity if item already exists in cart (addToCart)", () => {
+    const startState = {
+      items: [{ id: 1, name: "Item", price: 10, image: "img", quantity: 1 }],
+      isOpen: false,
+    };
+
+    const actual = cartReducer(
+        startState,
+        addToCart({ id: 1, name: "Item", price: 10, image: "img" })
+    );
+
+    expect(actual.items).toHaveLength(1);
+    expect(actual.items[0].quantity).toBe(2);
   });
 
   it("should handle removeFromCart", () => {

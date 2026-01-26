@@ -5,16 +5,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer, { addToCart } from "@/lib/redux/features/cart/cartSlice";
 import { CartOverlay } from "@/components/CartOverlay";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    aside: ({ children, ...props }: any) => (
-      <aside {...props}>{children}</aside>
-    ),
-  },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}));
-
 const renderWithRedux = (
   component: React.ReactElement,
   {
@@ -118,5 +108,14 @@ describe("CartOverlay Component", () => {
     ).toBeInTheDocument();
     expect(screen.queryByText("Item To Remove")).not.toBeInTheDocument();
     expect(store.getState().cart.items).toHaveLength(0);
+  });
+
+  it("should close the cart when clicking on the backdrop", () => {
+    renderWithRedux(<CartOverlay isOpen={true} onClose={onCloseMock} />);
+
+    const backdrop = screen.getByTestId("cart-backdrop");
+    fireEvent.click(backdrop);
+
+    expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 });
