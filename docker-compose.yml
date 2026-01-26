@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: starsoft-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Mapeia a porta 3000 do container para a 3000 do seu computador
+    ports:
+      - "3000:3000"
+    # Sincroniza os arquivos locais com o container
+    volumes:
+      - .:/app
+      - /app/node_modules # Garante que o node_modules do container não seja sobrescrito pelo local
+    environment:
+      - WATCHPACK_POLLING=true # Ajuda o Hot Reload a funcionar melhor no Docker (especialmente em Windows)
+      - CHOKIDAR_USEPOLLING=true
+    # Reinicia automaticamente se cair
+    restart: always
