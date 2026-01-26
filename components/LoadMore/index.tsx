@@ -4,9 +4,8 @@ import {
   ProgressBarContainer,
   ProgressBarFill,
   LoadMoreButton,
-  CompletionText,
   Spinner,
-  SpinnerContainer
+  SpinnerContainer,
 } from "./style";
 
 interface LoadMoreProps {
@@ -28,7 +27,7 @@ export function LoadMoreSection({
   return (
     <LoadMoreContainer>
       <ProgressBarContainer>
-        <ProgressBarFill 
+        <ProgressBarFill
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ type: "spring", stiffness: 60, damping: 20 }}
@@ -59,13 +58,14 @@ export function LoadMoreSection({
       )}
 
       {isComplete && (
-        <CompletionText
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <LoadMoreButton
+          disabled={true}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          Você chegou ao fim da lista.
-        </CompletionText>
+          Você já viu tudo
+        </LoadMoreButton>
       )}
     </LoadMoreContainer>
   );

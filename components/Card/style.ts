@@ -1,6 +1,15 @@
 "use client";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const shimmer = keyframes`
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+`;
 
 export const CardContainer = styled.div`
   width: 100%;
@@ -14,8 +23,8 @@ export const CardContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  width: 296px;
-  height: 258px;
+  width: 296px !important;
+  height: 258px !important;
   background-color: #22232c;
   border-radius: 8px;
   position: relative;
@@ -23,6 +32,24 @@ export const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ImageSkeleton = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #22232c;
+  background-image: linear-gradient(
+    90deg,
+    #22232c 0%,
+    #32333e 50%,
+    #22232c 100%
+  );
+  background-size: 200% 100%;
+  animation: ${shimmer} 1.5s infinite linear;
+  z-index: 1;
 `;
 
 export const TextContent = styled.div`
@@ -44,6 +71,11 @@ export const Subtitle = styled.p`
   font-weight: 400;
   color: #cccccc;
   margin-top: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const PriceContainer = styled.div`

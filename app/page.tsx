@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/Card";
 import { Header } from "@/components/Header";
-import { LoadMoreSection } from "@/components/LoadMore";
+import { LoadMoreSection } from "@/components/LoadMore"; // Correct import based on file content
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { addToCart } from "@/lib/redux/features/cart/cartSlice";
+import { useProducts } from "@/hooks/useProducts";
+import { Product } from "@/services/api";
 
 import {
   PageContainer,
@@ -16,43 +16,32 @@ import {
   LoadMoreWrapper,
 } from "./style";
 
-const TOTAL_ITEMS = 32;
-const ITEMS_PER_PAGE = 4;
-
-const GENERATE_MOCK_ITEMS = (count: number) =>
-  Array.from({ length: count }).map((_, i) => ({
-    id: i,
-    title: `Voucher NFT #${i + 1}`,
-    subtitle: "Passe de acesso exclusivo para membros Starsoft.",
-    imageSrc: "/bag.svg",
-    price: Number((Math.random() * 2 + 0.5).toFixed(2)),
-  }));
-
 export default function Home() {
-  const [items, setItems] = useState(() => GENERATE_MOCK_ITEMS(8));
-  const [isLoading, setIsLoading] = useState(false);
+  const itemsPerPage = 8;
+
+  const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } =
+    useProducts({
+      rows: itemsPerPage,
+      sortBy: "id",
+      orderBy: "DESC",
+    });
+
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
 
-  const handleLoadMore = async () => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+  // Flatten all pages to get a single list of products
+  const products = data?.pages.flatMap((page) => page.products) || [];
+  // Get total count from the first page (or any page, as it should be consistent)
+  const totalItems = data?.pages[0]?.count || 0;
 
-    setItems((prev) => {
-      const nextCount = Math.min(prev.length + ITEMS_PER_PAGE, TOTAL_ITEMS);
-      return GENERATE_MOCK_ITEMS(nextCount);
-    });
-    setIsLoading(false);
-  };
-
-  const handleAddToCart = (item: (typeof items)[0]) => {
+  const handleAddToCart = (product: Product) => {
     dispatch(
       addToCart({
-        id: item.id,
-        name: item.title,
-        subtitle: item.subtitle,
-        price: item.price,
-        image: item.imageSrc || "/bag.svg",
+        id: product.id,
+        name: product.name,
+        subtitle: product.description || "Descrição indisponível",
+        price: product.price,
+        image: product.image,
       }),
     );
   };
@@ -62,28 +51,60 @@ export default function Home() {
       <Header />
 
       <MainContent>
-        <GridContainer>
-          {items.map((item) => (
-            <Card
-              key={item.id}
-              title={item.title}
-              subtitle={item.subtitle}
-              imageSrc={item.imageSrc}
-              price={item.price}
-              onBuy={() => handleAddToCart(item)}
-              isAdded={cartItems.some((cartItem) => cartItem.id === item.id)}
-            />
-          ))}
-        </GridContainer>
+        {isLoading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "400px",
+              color: "white",
+              fontSize: "1.2rem",
+            }}
+          >
+            Carregando produtos...
+          </div>
+        ) : isError ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "400px",
+              color: "#ff6b6b",
+              fontSize: "1.2rem",
+            }}
+          >
+            Erro ao carregar produtos. Tente novamente mais tarde.
+          </div>
+        ) : (
+          <>
+            <GridContainer>
+              {products.map((product) => (
+                <Card
+                  key={product.id}
+                  title={product.name}
+                  subtitle={product.description || "Descrição indisponível"}
+                  imageSrc={product.image}
+                  price={product.price}
+                  onBuy={() => handleAddToCart(product)}
+                  isAdded={cartItems.some(
+                    (cartItem) => String(cartItem.id) === String(product.id),
+                  )}
+                />
+              ))}
+            </GridContainer>
 
-        <LoadMoreWrapper>
-          <LoadMoreSection
-            currentCount={items.length}
-            totalCount={TOTAL_ITEMS}
-            isLoading={isLoading}
-            onLoadMore={handleLoadMore}
-          />
-        </LoadMoreWrapper>
+            <LoadMoreWrapper>
+              <LoadMoreSection
+                currentCount={products.length}
+                totalCount={totalItems}
+                isLoading={isFetchingNextPage}
+                onLoadMore={() => fetchNextPage()}
+              />
+            </LoadMoreWrapper>
+          </>
+        )}
       </MainContent>
 
       <Footer />
