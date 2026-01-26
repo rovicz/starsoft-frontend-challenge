@@ -17,6 +17,26 @@ A escolha das tecnologias foi baseada nos requisitos do desafio e nas melhores p
 
 ---
 
+## 🏗️ Decisões Arquiteturais
+
+### 1. Separação de Estado (Server vs Client)
+
+Optei por separar claramente as responsabilidades de estado:
+
+- **React Query:** Utilizado para dados que vêm do servidor (Produtos). Ele lida com _caching_, _deduping_, _loading states_ e revalidação automática.
+- **Redux Toolkit:** Utilizado estritamente para dados que pertencem à sessão do usuário (Carrinho). Isso evita a complexidade desnecessária de colocar dados da API no Redux.
+
+### 2. Next.js App Router
+
+O projeto utiliza a arquitetura moderna do App Router.
+
+- **`layout.tsx`:** Gerencia os Providers (Redux, Query, Theme) e evita _Prop Drilling_.
+- **Otimização de Imagens:** Uso do `next/image` configurado com `remotePatterns` para servir imagens da AWS S3 de forma otimizada.
+
+### 3. Ambiente Containerizado
+
+Todo o ambiente de desenvolvimento foi configurado via Docker para garantir consistência. O uso de _Volumes_ permite o Hot-Reloading, possibilitando o desenvolvimento em tempo real sem a necessidade de instalar Node.js na máquina host.
+
 ---
 
 ## 🔧 Como Executar o Projeto
