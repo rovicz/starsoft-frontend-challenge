@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Lato } from "next/font/google";
 import { ReduxProvider } from "@/lib/redux/provider";
 import QueryProvider from "@/lib/query-provider";
+import StyledComponentsRegistry from "@/lib/registry";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${lato.variable} antialiased`}>
-        <ReduxProvider>
-          <QueryProvider>{children}</QueryProvider>
-        </ReduxProvider>
+        <StyledComponentsRegistry>
+          <ReduxProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </ReduxProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
